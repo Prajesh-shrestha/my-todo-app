@@ -21,10 +21,11 @@ interface Task {
 export default function Home() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [input, setInput] = useState('');
-  const [now, setNow] = useState<number>(Date.now());
+  const [now, setNow] = useState<number>(0);
 
   // Update current time every second for accurate countdown timer
   useEffect(() => {
+    setNow(Date.now());
     const timer = setInterval(() => setNow(Date.now()), 1000);
     return () => clearInterval(timer);
   }, []);
