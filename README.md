@@ -9,7 +9,7 @@ This repository contains a full-stack, cross-platform task management system bui
 
 ---
 
-## 🛠 Tech Stack & Architecture
+##  Tech Stack & Architecture
 
 * **Web Client:** Next.js (App Router), React, TypeScript, Tailwind CSS
 * **Mobile Client:** Flutter, Dart
@@ -61,33 +61,39 @@ This repository contains a full-stack, cross-platform task management system bui
 
 ---
 
-### 5. Security Hardening & Key Rotation
+### 5. Security Hardening & Deployment Troubleshooting
 * **What Changed:** Moved plain-text API configuration keys out of source code (`src/firebase.ts`) into a secure `.env.local` file using Next.js client-side variable conventions (`NEXT_PUBLIC_`).
 * **Problems Faced & Solutions:**
-  * **Problem: Hardcoded API keys lingering in Git commit history.**
-    * *Cause:* Keys pushed in earlier commits remain visible in Git history even if deleted from the current file.
+  * **Problem 1: Hardcoded API keys lingering in Git commit history.**
+    * *Cause:* Keys pushed in earlier commits remain visible in Git history even if deleted from current source files.
     * *Fix:* Verified `.gitignore` rules (`.env*`), rotated the API keys on the Firebase Console to invalidate historical credentials, and re-linked the new keys securely through environment variables.
+  * **Problem 2: Vercel Production Build Disconnected from Database.**
+    * *Cause:* Local `.env.local` files are intentionally excluded from Git pushes (`.gitignore`). Without configured environment variables on Vercel, the production web build failed to initialize Firebase.
+    * *Fix:* Configured `NEXT_PUBLIC_` environment variables within Vercel's Project Settings dashboard and triggered a clean redeployment.
+  * **Problem 3: Live Link Prompting Users for Vercel Login ("Deployment Protection").**
+    * *Cause:* Vercel enforces "Vercel Authentication" by default on newly created projects, restricting public access.
+    * *Fix:* Disabled Deployment Protection in Vercel's Security Settings, making the live `.vercel.app` URL publicly accessible to anyone without authentication.
 
 ---
 
 ##  Division of Labor (Developer vs. AI Collaborator)
 
 ### What I Solved & Handled (Developer):
-* **Environment & Infrastructure Execution:** Executed all terminal installation commands (Node.js, Git, Flutter SDK, Firebase CLI) and navigated PowerShell directory structures (`cd`, `Remove-Item`).
+* **Environment & Infrastructure Execution:** Executed all terminal installation commands (Node.js, Git, Flutter SDK, Firebase CLI) and managed PowerShell directory structures (`cd`, `Remove-Item`).
 * **System Settings & Permissions:** Enabled Windows Developer Mode (`start ms-settings:developers`) to resolve file symlink restrictions required by Flutter plugins.
 * **Platform Account Management:** Set up Google Firebase projects, created GitHub repositories, configured Vercel deployment pipelines, and performed credential authentication via terminal interfaces (`firebase login`).
-* **UI/UX Testing & Debugging:** Verified real-time cross-platform state sync across browser windows and local mobile dev environments.
+* **UI/UX Testing & Debugging:** Verified real-time cross-platform state sync across browser windows, Vercel production links, and local mobile dev environments.
 
 ### What the AI Collaborator Assisted With (AI):
 * **Code Generation & Refactoring:** Wrote full TypeScript (`page.tsx`) and Dart (`main.dart`) source files, incorporating state management and real-time database listeners.
-* **Bug Diagnosis & Fixes:** Interpreted terminal build traces and visual error screens (e.g., Next.js hydration mismatches, missing Firestore fields, path resolution issues).
+* **Bug Diagnosis & Fixes:** Interpreted terminal build traces, deployment logs, and visual error screens (e.g., Next.js hydration mismatches, missing Firestore fields, path resolution issues).
 * **Architecture Design:** Provided guidance on client-side 24-hour expiration strategies, NoSQL data structures, and continuous deployment workflows.
 
 ---
 
-## Technical Legend & Function Reference
+##  Technical Legend & Function Reference
 
-### Next.js / TypeScript / React Functions
+###  Next.js / TypeScript / React Functions
 
 | Function / API | Syntax / Source | Description & Purpose |
 | :--- | :--- | :--- |
@@ -100,7 +106,7 @@ This repository contains a full-stack, cross-platform task management system bui
 | `serverTimestamp()` | `firebase/firestore` | Generates a standardized UTC timestamp on Firebase servers, eliminating client clock variance. |
 | `process.env` | `Node.js / Next.js` | Reads environment variables defined in `.env.local` (prefixed with `NEXT_PUBLIC_` for client exposure). |
 
-### Flutter / Dart Functions
+###  Flutter / Dart Functions
 
 | Function / API | Syntax / Source | Description & Purpose |
 | :--- | :--- | :--- |
@@ -113,7 +119,7 @@ This repository contains a full-stack, cross-platform task management system bui
 
 ---
 
-## Local Setup Instructions
+##  Local Setup Instructions
 
 ### Prerequisites
 * Node.js (v18+)
@@ -155,10 +161,3 @@ Run the app:
 
 Bash
 flutter run
-
----
-
-<FollowUp message="Once you update your README.md on GitHub, run `git pull` in your local terminal to sync your VS Code environment. Would you like to do a quick mock interview session based on these technical details?">
-  <Option label="Start Mock Interview" query="Let's practice! Ask me technical interview questions based on this project."/>
-  <Option label="Help with git pull" query="Remind me how to run git pull in VS Code."/>
-</FollowUp>
