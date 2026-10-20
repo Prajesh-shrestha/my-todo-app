@@ -2,13 +2,12 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAIspLcDl-btR_o2yMq72OEXn7uJhUy8kY",
-  authDomain: "my-todo-app-4478c.firebaseapp.com",
-  projectId: "my-todo-app-4478c",
-  storageBucket: "my-todo-app-4478c.firebasestorage.app",
-  messagingSenderId: "665617054899",
-  appId: "1:665617054899:web:a10320733a22c3858084c6",
-  measurementId: "G-T0KYLQ3SDF"
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID
 };
 
 const app = initializeApp(firebaseConfig);

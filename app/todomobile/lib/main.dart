@@ -185,4 +185,3 @@ class _TodoScreenState extends State<TodoScreen> {
     );
   }
 }
-
